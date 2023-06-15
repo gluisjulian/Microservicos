@@ -21,10 +21,11 @@ namespace GeekShopping.ProductAPI.Controllers
         public async Task<ActionResult> FindAll()
         {
             var produtos = await _repository.FindAll();
-            if(produtos == null) return NotFound();
+            if (produtos == null) return NotFound();
 
             return Ok(produtos);
         }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProdutoDTO>> FindById(long id)
@@ -35,6 +36,7 @@ namespace GeekShopping.ProductAPI.Controllers
             return Ok(produto);
         }
 
+
         [HttpPost]
         public async Task<ActionResult<ProdutoDTO>> CreateProduto(ProdutoDTO produtoDTO)
         {
@@ -42,6 +44,26 @@ namespace GeekShopping.ProductAPI.Controllers
             if (produto == null) return NotFound();
 
             return Ok(produto);
+        }
+
+
+        [HttpPut]
+        public async Task<ActionResult<ProdutoDTO>> EditProduto(ProdutoDTO produtoDTO)
+        {
+            var produto = await _repository.Update(produtoDTO);
+            if (produto == null) return NotFound();
+
+            return Ok(produto);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProduto(long id)
+        {
+            var status = await _repository.Delete(id);
+            if (status == false) return BadRequest();
+
+            return Ok(status);
         }
     }
 }
