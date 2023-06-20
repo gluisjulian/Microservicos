@@ -38,7 +38,7 @@ namespace GeekShopping.ProductAPI.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<ProdutoDTO>> CreateProduto(ProdutoDTO produtoDTO)
+        public async Task<ActionResult<ProdutoDTO>> CreateProduto([FromBody] ProdutoDTO produtoDTO)
         {
             var produto = await _repository.Create(produtoDTO);
             if (produto == null) return NotFound();
@@ -48,7 +48,7 @@ namespace GeekShopping.ProductAPI.Controllers
 
 
         [HttpPut]
-        public async Task<ActionResult<ProdutoDTO>> EditProduto(ProdutoDTO produtoDTO)
+        public async Task<ActionResult<ProdutoDTO>> EditProduto([FromBody] ProdutoDTO produtoDTO)
         {
             var produto = await _repository.Update(produtoDTO);
             if (produto == null) return NotFound();
